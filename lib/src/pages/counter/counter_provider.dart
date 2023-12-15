@@ -5,6 +5,9 @@ import '../../utils/ansi_color_debug.dart';
 
 /// state 에 대한 business logic 을 담당하는 클래스
 class CounterAutoFamNotifier extends AutoDisposeFamilyNotifier<int, int> {
+  // int publicValue = 0;          // public variable 선언 불가
+  // int _publicValue = 0;         // private variable 선언 가능
+
   @override
   int build(int arg) {
     // param 은 arg 로 고정
