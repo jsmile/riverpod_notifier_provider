@@ -4,16 +4,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../utils/ansi_color_debug.dart';
 
 /// state 에 대한 business logic 을 담당하는 클래스
-class CounterAutoNotifier extends AutoDisposeNotifier<int> {
+class CounterFamNotifier extends FamilyNotifier<int, int> {
   @override
-  int build() {
-    debugPrint(info('### CounterAutoNotifier initialized ###'));
+  int build(int arg) {
+    // param 은 arg 로 고정
+    debugPrint(info('### CounterFamNotifier initialized ###'));
 
     ref.onDispose(() {
-      debugPrint(info('### CounterAutoNotifier disposed ###'));
+      debugPrint(info('### CounterFamNotifier disposed ###'));
     });
 
-    return 0;
+    return arg;
   }
 
   void increase() {
@@ -21,10 +22,10 @@ class CounterAutoNotifier extends AutoDisposeNotifier<int> {
   }
 }
 
-// NotifierProvider<notifierT, stateT>
-final counterAutoNotiProvider =
-    NotifierProvider.autoDispose<CounterAutoNotifier, int>(
-        CounterAutoNotifier.new);
-// final counterAutoNotiProvider = NotifierProvider.autoDispose<AutoDisposeNotifier, int>(() {
-//   return CounterAutoNotifier();
+// NotifierProvider.family<notifierT, stateT, argT>
+final counterFamNotiProvider =
+    NotifierProvider.family<CounterFamNotifier, int, int>(
+        CounterFamNotifier.new);
+// final counterFamNotiProvider = NotifierProvider.family<CounterFamNotifier, int, int>(() {
+//   return CounterFamNotifier();
 // });
