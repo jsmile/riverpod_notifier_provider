@@ -7,7 +7,7 @@ class CounterPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final counter = ref.watch(counterNotiProvider); // state 자체를 반환
+    final counter = ref.watch(counterAutoNotiProvider); // state 자체를 반환
 
     return Scaffold(
       appBar: AppBar(
@@ -24,7 +24,7 @@ class CounterPage extends ConsumerWidget {
             const SizedBox(height: 20),
             OutlinedButton(
               onPressed: () {
-                ref.read(counterNotiProvider.notifier).increase();
+                ref.read(counterAutoNotiProvider.notifier).increase();
               },
               child: Text(
                 'Increase',
