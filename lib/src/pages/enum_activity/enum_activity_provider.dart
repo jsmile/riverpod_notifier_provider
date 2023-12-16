@@ -9,26 +9,53 @@ import '../../utils/ansi_color_debug.dart';
 part 'enum_activity_provider.g.dart';
 
 @riverpod
+class MyCounterNoti extends _$MyCounterNoti {
+  @override
+  int build() {
+    debugPrint(info('### MyCounterNotifier initialized ###'));
+
+    ref.onDispose(() {
+      debugPrint(info('### MyCounterNotifier disposed ###'));
+    });
+
+    return 0;
+  }
+
+  void increment() {
+    state++;
+  }
+}
+
+/// NotifierProvider 가 invalidate 거나 watch() 하고 있는 provider 변하는 경우
+///   Notifier 자신은 dispose 되고 다시 build() 되지만,
+///   이미 만들어진 Notifier instance 는 dispose 되지는 않는다.
+@riverpod
 class EnumActivityNoti extends _$EnumActivityNoti {
   int _errorCount = 0;
 
   @override
   EnumActivityState build() {
-    debugPrint(info('### EnumActivityNotiProvider initialized ###'));
+    debugPrint(info('###  EnumActivityNotifier hash : $hashCode ###'));
+
+    debugPrint(info('### EnumActivityNotifier initialized ###'));
 
     ref.onDispose(() {
-      debugPrint(info('### EnumActivityNotiProvider disposed ###'));
+      debugPrint(info('### EnumActivityNotifier disposed ###'));
     });
+
+    ref.watch(myCounterNotiProvider);
 
     return EnumActivityState.initial();
   }
 
   Future<void> fetchActivity(String activityType) async {
+    debugPrint(success(
+        '###  EnumActivityNotifier fetchActivity hash : $hashCode ###'));
     state = state.copyWith(status: ActivityStatus.loading);
 
     try {
       debugPrint(
-          info('### EnumActivityNotiProvider _errorCount : $_errorCount ###'));
+          success('### EnumActivityNotifier _errorCount : $_errorCount ###'));
 
       if ((_errorCount++ % 2) != 1) {
         await Future.delayed(const Duration(milliseconds: 500));
