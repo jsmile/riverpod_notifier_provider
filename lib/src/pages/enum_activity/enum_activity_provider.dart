@@ -10,6 +10,8 @@ part 'enum_activity_provider.g.dart';
 
 @riverpod
 class EnumActivityNoti extends _$EnumActivityNoti {
+  int _errorCount = 0;
+
   @override
   EnumActivityState build() {
     debugPrint(info('### EnumActivityNotiProvider initialized ###'));
@@ -25,6 +27,14 @@ class EnumActivityNoti extends _$EnumActivityNoti {
     state = state.copyWith(status: ActivityStatus.loading);
 
     try {
+      debugPrint(
+          info('### EnumActivityNotiProvider _errorCount : $_errorCount ###'));
+
+      if ((_errorCount++ % 2) != 1) {
+        await Future.delayed(const Duration(milliseconds: 500));
+        throw 'Fail to fatch activity';
+      }
+
       final response = await ref.read(dioProvider).get('?type=$activityType');
       final activity = Activity.fromJson(response.data);
 

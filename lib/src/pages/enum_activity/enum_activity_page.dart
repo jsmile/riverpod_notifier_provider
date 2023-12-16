@@ -32,6 +32,18 @@ class _EnumActivityPageState extends ConsumerState<EnumActivityPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(enumActivityNotiProvider, (previous, next) {
+      if (next.status == ActivityStatus.failure) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text(next.error),
+            );
+          },
+        );
+      }
+    });
     final activityState = ref.watch(enumActivityNotiProvider);
 
     return Scaffold(
@@ -48,21 +60,23 @@ class _EnumActivityPageState extends ConsumerState<EnumActivityPage> {
         ActivityStatus.loading => const Center(
             child: CircularProgressIndicator(),
           ),
-        ActivityStatus.failure => Center(
-            child: Text(
-              activityState.error,
-              style: const TextStyle(
-                fontSize: 20.0,
-                color: Colors.red,
-              ),
-            ),
-          ),
+        ActivityStatus.failure => activityState.activity == Activity.empty()
+            ? const Center(
+                child: Text(
+                  'Get Some Activity',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    color: Colors.red,
+                  ),
+                ),
+              )
+            : ActivityWidget(activity: activityState.activity),
         ActivityStatus.success =>
           ActivityWidget(activity: activityState.activity),
       },
-      floatingActionButton: FloatingActionButton(
-        child:
-            Text('New Activity', style: Theme.of(context).textTheme.titleLarge),
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text('New Activity',
+            style: Theme.of(context).textTheme.titleMedium),
         onPressed: () {
           final randomNumber = Random().nextInt(activityTypes.length);
           ref
