@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_notifier_provider/src/models/activity.dart';
-import 'package:riverpod_notifier_provider/src/pages/counter/counter_provider.dart';
 import 'package:riverpod_notifier_provider/src/pages/enum_activity/enum_activity_provider.dart';
 
 import 'activity_widget.dart';
