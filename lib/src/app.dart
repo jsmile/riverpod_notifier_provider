@@ -4,6 +4,7 @@ import 'package:riverpod_notifier_provider/src/pages/enum_async_activity/enum_as
 import 'package:riverpod_notifier_provider/src/pages/sealed_activity/sealed_activity_page.dart';
 
 import 'pages/counter/counter_page.dart';
+import 'pages/sealed_async_activity/sealed_async_activity_page.dart';
 import 'widgets/custom_button.dart';
 
 class App extends StatelessWidget {
@@ -50,8 +51,12 @@ class MyHomePage extends StatelessWidget {
               child: SealedActivityPage(),
             ),
             CustomButton(
-              title: 'Enum Async State Activity',
+              title: 'Enum State Async Activity',
               child: EnumAsyncActivityPage(),
+            ),
+            CustomButton(
+              title: 'Sealed State Async Activity',
+              child: SealedAsyncActivityPage(),
             ),
           ],
         ),

@@ -23,7 +23,7 @@ final myCounterNotiProvider =
 
 typedef _$MyCounterNoti = AutoDisposeNotifier<int>;
 String _$enumAsyncActivityNotiHash() =>
-    r'254131f5b861dba84acce29b16ea7108308d1361';
+    r'a3e0576f66aede1a3806edb0ec0109e6b9217141';
 
 /// NotifierProvider 가 invalidate 거나 watch() 하고 있는 provider 변하는 경우
 ///   Notifier 자신은 dispose 되고 다시 build() 되지만,
